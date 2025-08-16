@@ -13,7 +13,8 @@ public class Duke {
 
         System.out.println(initMessage);
 
-        ArrayList<String> savedTexts = new ArrayList<>();
+        ArrayList<String> savedTasks = new ArrayList<>();
+        ArrayList<Boolean> tasksDone = new ArrayList<>();
 
         // Detect user input
         while (sc.hasNextLine()) {
@@ -23,14 +24,40 @@ public class Duke {
                 break;
             } else if (userInput.equals("list")) {
                 System.out.println("_________________________");
-                for (int i = 0; i < savedTexts.size(); i++) {
-                    System.out.println(String.valueOf(i + 1) + ". " + savedTexts.get(i));
+                System.out.println("Here are the tasks in your list:");
+                for (int i = 0; i < savedTasks.size(); i++) {
+                    String completed = "";
+                    if (tasksDone.get(i)) {
+                        completed = "X";
+                    } else {
+                        completed = " ";
+                    }
+                    System.out.println(String.valueOf(i + 1) + ".[" + completed + "] "+ savedTasks.get(i));
                 }
                 System.out.println("_________________________");
+            } else if (userInput.length() > 4) {
+                if (userInput.substring(0, 4).equals("mark")) {
+                    int idx = Character.getNumericValue(userInput.charAt(5)) - 1;
+                    tasksDone.set(idx, true);
+                    System.out.println("_________________________");
+                    System.out.println("Nice! I've marked this task as done:");
+                    boolean completed = tasksDone.get(idx);
+                    System.out.println("[X] "+ savedTasks.get(idx));
+                    System.out.println("_________________________");
+                } else if (userInput.substring(0, 6).equals("unmark")) {
+                    int idx = Character.getNumericValue(userInput.charAt(7)) - 1;
+                    tasksDone.set(idx, false);
+                    System.out.println("_________________________");
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    boolean completed = tasksDone.get(idx);
+                    System.out.println("[ ] "+ savedTasks.get(idx));
+                    System.out.println("_________________________");
+                }
             } else {
                 System.out.println("_________________________");
                 System.out.println("added: " + userInput);
-                savedTexts.add(userInput);
+                savedTasks.add(userInput);
+                tasksDone.add(false);
                 System.out.println("_________________________");
             }
         }
