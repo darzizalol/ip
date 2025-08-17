@@ -35,6 +35,8 @@ public class Duke {
                     handleDeadlineCommand(userInput, savedTasks);
                 } else if (userInput.startsWith("event")) {
                     handleEventCommand(userInput, savedTasks);
+                } else if (userInput.startsWith("delete")){
+                    handleDeleteCommand(userInput, savedTasks);
                 } else {
                     throw new DukeException("I'm sorry, but I don't know what that means :-(");
                 }
@@ -181,6 +183,20 @@ public class Duke {
         System.out.println("_________________________");
         System.out.println("Got it. I've added this task:");
         System.out.println(event.getStatusText());
+        System.out.println("Now you have " + savedTasks.size() + " tasks in the list.");
+        System.out.println("_________________________");
+    }
+
+    private static void handleDeleteCommand(String userInput, ArrayList<Task> savedTasks) {
+        String[] parts = userInput.split(" ", 2);
+
+        int idx = Character.getNumericValue(userInput.charAt(7)) - 1;
+
+        Task deletedTask = savedTasks.remove(idx);
+
+        System.out.println("_________________________");
+        System.out.println("Roger. I've removed this task:");
+        System.out.println(deletedTask.getStatusText());
         System.out.println("Now you have " + savedTasks.size() + " tasks in the list.");
         System.out.println("_________________________");
     }
