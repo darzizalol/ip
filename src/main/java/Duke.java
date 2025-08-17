@@ -6,10 +6,10 @@ public class Duke {
 
         Scanner sc = new Scanner(System.in);
 
-        String initMessage = "_________________________ \n" +
-                "Hello! I'm ChatZH \n" +
-                "What can I do for you? \n" +
-                "_________________________ \n";
+        String initMessage = "_________________________\n" +
+                "Hello! I'm ChatZH\n" +
+                "What can I do for you?\n" +
+                "_________________________\n";
 
         System.out.println(initMessage);
 
