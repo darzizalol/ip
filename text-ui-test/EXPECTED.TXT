@@ -4,9 +4,32 @@ What can I do for you?
 _________________________
 
 _________________________
+OOPS!!! The description of a todo cannot be empty.
+_________________________
+_________________________
+OOPS!!! There are no tasks to mark!
+_________________________
+_________________________
+OOPS!!! I'm sorry, but I don't know what that means :-(
+_________________________
+_________________________
 Got it. I've added this task:
 [T][ ] borrow book
 Now you have 1 tasks in the list.
+_________________________
+_________________________
+Here are the tasks in your list:
+1.[T][ ] borrow book
+_________________________
+_________________________
+Nice! I've marked this task as done:
+[T][X] borrow book
+_________________________
+_________________________
+OOPS!!! Invalid task number! Please use a number between 1 and 1
+_________________________
+_________________________
+OOPS!!! Please specify a task number to mark!
 _________________________
 _________________________
 Got it. I've added this task:
@@ -25,11 +48,11 @@ Now you have 4 tasks in the list.
 _________________________
 _________________________
 Nice! I've marked this task as done:
-[X] borrow book
+[T][X] borrow book
 _________________________
 _________________________
 Nice! I've marked this task as done:
-[X] project meeting
+[E][X] project meeting (from: Mon 2pm to: 4pm)
 _________________________
 _________________________
 Here are the tasks in your list:
@@ -40,7 +63,7 @@ Here are the tasks in your list:
 _________________________
 _________________________
 OK, I've marked this task as not done yet:
-[ ] project meeting
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
 _________________________
 _________________________
 Here are the tasks in your list:
