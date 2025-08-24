@@ -1,20 +1,36 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
+import java.util.Scanner;
+import java.io.FileNotFoundException;
 
-public class FileLoading {
+public class Storage {
 
-    private String DATA_FILE_PATH;
+    private String filePath;
 
-    public FileLoading(String DataFilePath) {
-        this.DATA_FILE_PATH = DataFilePath;
+    public Storage(String filePath) {
+        this.filePath = filePath;
     }
 
-    public void loadTasksFromFile(ArrayList<Task> savedTasks) {
+    public ArrayList<Task> saveTasks(ArrayList<Task> tasks) {
+        try {
+            FileWriter fw = new FileWriter(this.filePath);
 
-        File file = new File(DATA_FILE_PATH);
+            for (int i = 0; i < tasks.size(); i++) {
+                String textToWrite = tasks.get(i).toFileFormat() + System.lineSeparator();
+                fw.write(textToWrite);
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("There is an IOException, fix it!");
+        }
+        return tasks;
+    }
+
+    public ArrayList<Task> loadTasks() {
+        File file = new File(this.filePath);
+        ArrayList<Task> tasks = new ArrayList<>();
 
         if (!file.exists()) {
             try {
@@ -48,21 +64,21 @@ public class FileLoading {
                     } else {
                         task = new ToDos(parts[2], false);
                     }
-                    savedTasks.add(task);
+                    tasks.add(task);
                 } else if (parts[0].equals("D")) {
                     if (parts[1].equals("1")) {
                         task = new Deadlines(parts[2], parts[3], true);
                     } else {
                         task = new Deadlines(parts[2], parts[3], false);
                     }
-                    savedTasks.add(task);
+                    tasks.add(task);
                 } else if (parts[0].equals("E")) {
                     if (parts[1].equals("1")) {
                         task = new Events(parts[2], parts[3], parts[4], true);
                     } else {
                         task = new Events(parts[2], parts[3], parts[4], false);
                     }
-                    savedTasks.add(task);
+                    tasks.add(task);
                 }    
             }
             s.close();
@@ -70,6 +86,6 @@ public class FileLoading {
             System.out.println("There are no tasks in the list.");
             System.out.println("_________________________");
         }
+        return tasks;
     }
-
 }

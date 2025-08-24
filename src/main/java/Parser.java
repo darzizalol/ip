@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class HandleCommand {
+public class Parser {
 
     public static void handleUserCommand(String userInput, ArrayList<Task> savedTasks) {
         try {
