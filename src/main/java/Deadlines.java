@@ -2,8 +2,8 @@ public class Deadlines extends Task {
 
     private String deadline;
 
-    public Deadlines(String description, String deadline) {
-        super(description);
+    public Deadlines(String description, String deadline, boolean isDone) {
+        super(description, isDone);
         this.deadline = deadline;
     }
 
@@ -13,4 +13,12 @@ public class Deadlines extends Task {
                 + " (by: " + this.deadline + ")";
     }
 
+    public String getDeadline() {
+        return deadline;
+    }
+
+    @Override
+    public String toFileFormat() {
+        return "D | " + (isTaskDone() ? "1" : "0") + " | " + description + " | " + deadline;
+    }
 }

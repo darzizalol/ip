@@ -1,54 +1,34 @@
-import java.util.Scanner;
 import java.util.ArrayList;
 
-public class Duke {
-    public static void main(String[] args) {
+public class HandleCommand {
 
-        Scanner sc = new Scanner(System.in);
-
-        String initMessage = "_________________________\n" +
-                "Hello! I'm ChatZH\n" +
-                "What can I do for you?\n" +
-                "_________________________\n";
-
-        System.out.println(initMessage);
-
-        ArrayList<Task> savedTasks = new ArrayList<>();
-
-        // Detect user inputs
-        while (sc.hasNextLine()) {
-            String userInput = sc.nextLine();
-            
-            try {
-                if (userInput.equals("bye")) {
-                    System.out.println("Bye. Hope to see you again soon!");
-                    break;
-                } else if (userInput.equals("list")) {
-                    handleListCommand(savedTasks);
-                } else if (userInput.startsWith("mark")) {
-                    handleMarkCommand(userInput, savedTasks, true);
-                } else if (userInput.startsWith("unmark")) {
-                    handleMarkCommand(userInput, savedTasks, false);
-                } else if (userInput.startsWith("todo")) {
-                    handleTodoCommand(userInput, savedTasks);
-                } else if (userInput.startsWith("deadline")) {
-                    handleDeadlineCommand(userInput, savedTasks);
-                } else if (userInput.startsWith("event")) {
-                    handleEventCommand(userInput, savedTasks);
-                } else if (userInput.startsWith("delete")){
-                    handleDeleteCommand(userInput, savedTasks);
-                } else {
-                    throw new DukeException("I'm sorry, but I don't know what that means :-(");
-                }
-            } catch (DukeException e) {
-                System.out.println("_________________________");
-                System.out.println("OOPS!!! " + e.getMessage());
-                System.out.println("_________________________");
-            } catch (Exception e) {
-                System.out.println("_________________________");
-                System.out.println("OOPS!!! An unexpected error occurred: " + e.getMessage());
-                System.out.println("_________________________");
+    public static void handleUserCommand(String userInput, ArrayList<Task> savedTasks) {
+        try {
+            if (userInput.equals("list")) {
+                handleListCommand(savedTasks);
+            } else if (userInput.startsWith("mark")) {
+                handleMarkCommand(userInput, savedTasks, true);
+            } else if (userInput.startsWith("unmark")) {
+                handleMarkCommand(userInput, savedTasks, false);
+            } else if (userInput.startsWith("todo")) {
+                handleTodoCommand(userInput, savedTasks);
+            } else if (userInput.startsWith("deadline")) {
+                handleDeadlineCommand(userInput, savedTasks);
+            } else if (userInput.startsWith("event")) {
+                handleEventCommand(userInput, savedTasks);
+            } else if (userInput.startsWith("delete")){
+                handleDeleteCommand(userInput, savedTasks);
+            } else {
+                throw new ChatZHException("I'm sorry, but I don't know what that means :-(");
             }
+        } catch (ChatZHException e) {
+            System.out.println("_________________________");
+            System.out.println("OOPS!!! " + e.getMessage());
+            System.out.println("_________________________");
+        } catch (Exception e) {
+            System.out.println("_________________________");
+            System.out.println("OOPS!!! An unexpected error occurred: " + e.getMessage());
+            System.out.println("_________________________");
         }
     }
 
@@ -62,9 +42,9 @@ public class Duke {
         System.out.println("_________________________");
     }
 
-    private static void handleMarkCommand(String userInput, ArrayList<Task> savedTasks, boolean markAsDone) throws DukeException {
+    private static void handleMarkCommand(String userInput, ArrayList<Task> savedTasks, boolean markAsDone) throws ChatZHException {
         if (savedTasks.isEmpty()) {
-            throw new DukeException("There are no tasks to mark!");
+            throw new ChatZHException("There are no tasks to mark!");
         }
 
         int idx;
@@ -75,11 +55,11 @@ public class Duke {
                 idx = Character.getNumericValue(userInput.charAt(7)) - 1;
             }
         } catch (StringIndexOutOfBoundsException e) {
-            throw new DukeException("Please specify a task number to mark!");
+            throw new ChatZHException("Please specify a task number to mark!");
         }
 
         if (idx < 0 || idx >= savedTasks.size()) {
-            throw new DukeException("Invalid task number! Please use a number between 1 and " + savedTasks.size());
+            throw new ChatZHException("Invalid task number! Please use a number between 1 and " + savedTasks.size());
         }
 
         Task task = savedTasks.get(idx);
@@ -95,15 +75,15 @@ public class Duke {
         System.out.println("_________________________");
     }
 
-    private static void handleTodoCommand(String userInput, ArrayList<Task> savedTasks) throws DukeException {
+    private static void handleTodoCommand(String userInput, ArrayList<Task> savedTasks) throws ChatZHException {
         String[] parts = userInput.split(" ", 2);
         String description = parts.length > 1 ? parts[1].trim() : "";
         
         if (description.isEmpty()) {
-            throw new DukeException("The description of a todo cannot be empty.");
+            throw new ChatZHException("The description of a todo cannot be empty.");
         }
 
-        ToDos todo = new ToDos(description);
+        ToDos todo = new ToDos(description, false);
         savedTasks.add(todo);
         
         System.out.println("_________________________");
@@ -113,30 +93,30 @@ public class Duke {
         System.out.println("_________________________");
     }
 
-    private static void handleDeadlineCommand(String userInput, ArrayList<Task> savedTasks) throws DukeException {
+    private static void handleDeadlineCommand(String userInput, ArrayList<Task> savedTasks) throws ChatZHException {
         String[] parts = userInput.split(" ", 2);
         if (parts.length < 2) {
-            throw new DukeException("The description of a deadline cannot be empty.");
+            throw new ChatZHException("The description of a deadline cannot be empty.");
         }
 
         String rest = parts[1].trim();
         if (rest.isEmpty()) {
-            throw new DukeException("The description of a deadline cannot be empty.");
+            throw new ChatZHException("The description of a deadline cannot be empty.");
         }
 
         String[] parts2 = rest.split(" /by ", 2);
         if (parts2.length < 2) {
-            throw new DukeException("Please specify a deadline using /by keyword.");
+            throw new ChatZHException("Please specify a deadline using /by keyword.");
         }
 
         String description = parts2[0].trim();
         String deadline = parts2[1].trim();
         
         if (description.isEmpty() || deadline.isEmpty()) {
-            throw new DukeException("Both description and deadline cannot be empty.");
+            throw new ChatZHException("Both description and deadline cannot be empty.");
         }
 
-        Deadlines ddl = new Deadlines(description, deadline);
+        Deadlines ddl = new Deadlines(description, deadline, false);
         savedTasks.add(ddl);
         
         System.out.println("_________________________");
@@ -146,20 +126,20 @@ public class Duke {
         System.out.println("_________________________");
     }
 
-    private static void handleEventCommand(String userInput, ArrayList<Task> savedTasks) throws DukeException {
+        private static void handleEventCommand(String userInput, ArrayList<Task> savedTasks) throws ChatZHException {
         String[] parts = userInput.split(" ", 2);
         if (parts.length < 2) {
-            throw new DukeException("The description of an event cannot be empty.");
+            throw new ChatZHException("The description of an event cannot be empty.");
         }
 
         String rest = parts[1].trim();
         if (rest.isEmpty()) {
-            throw new DukeException("The description of an event cannot be empty.");
+            throw new ChatZHException("The description of an event cannot be empty.");
         }
 
         String[] parts2 = rest.split(" /from ", 2);
         if (parts2.length < 2) {
-            throw new DukeException("Please specify start time using /from keyword.");
+            throw new ChatZHException("Please specify start time using /from keyword.");
         }
 
         String description = parts2[0].trim();
@@ -167,17 +147,17 @@ public class Duke {
         
         String[] timeParts = times.split(" /to ", 2);
         if (timeParts.length < 2) {
-            throw new DukeException("Please specify end time using /to keyword.");
+            throw new ChatZHException("Please specify end time using /to keyword.");
         }
 
         String startTime = timeParts[0].trim();
         String endTime = timeParts[1].trim();
         
         if (description.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
-            throw new DukeException("Description, start time, and end time cannot be empty.");
+            throw new ChatZHException("Description, start time, and end time cannot be empty.");
         }
 
-        Events event = new Events(description, startTime, endTime);
+        Events event = new Events(description, startTime, endTime, false);
         savedTasks.add(event);
         
         System.out.println("_________________________");
@@ -200,4 +180,5 @@ public class Duke {
         System.out.println("Now you have " + savedTasks.size() + " tasks in the list.");
         System.out.println("_________________________");
     }
+
 }
