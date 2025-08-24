@@ -6,13 +6,20 @@ list
 mark 1
 mark 2
 mark
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
-deadline do homework /by no idea :-p
+deadline return book /by 02/12/2019 1800
+event project meeting /from 02/12/2019 1400 /to 02/12/2019 1600
+event project meeting /from 02/12/2019 /to 02/12/2019
+event project meeting /from 02/12/2019 1400 /to 03/12/2019 1600
+deadline do homework /by 2/12/2024 1800
 mark 1
 mark 3
 list
 delete 2
 unmark 3
 list
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
 bye
