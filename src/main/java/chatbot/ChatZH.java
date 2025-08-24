@@ -1,5 +1,5 @@
+package chatbot;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class ChatZH {
 
