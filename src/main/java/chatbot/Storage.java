@@ -10,10 +10,21 @@ public class Storage {
 
     private String filePath;
 
+    /**
+     * Constructor for Storage
+     * 
+     * @param filePath the path to the data file
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Save the tasks to the storage file
+     * 
+     * @param tasks the tasks to save
+     * @return the saved tasks
+     */
     public ArrayList<Task> saveTasks(ArrayList<Task> tasks) {
         try {
             FileWriter fw = new FileWriter(this.filePath);
@@ -29,6 +40,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Load the tasks from the storage file
+     * 
+     * @return the loaded tasks
+     */
     public ArrayList<Task> loadTasks() {
         File file = new File(this.filePath);
         ArrayList<Task> tasks = new ArrayList<>();

@@ -9,8 +9,17 @@ public class UI {
                 "What can I do for you?\n" +
                 "_________________________\n";
 
+    /**
+     * Constructor for UI
+     */
     public UI () {}
 
+    /**
+     * Run the UI
+     * 
+     * @param sc the scanner to read user input
+     * @param storage the storage in charge of saving and loading tasks
+     */
     public void run(Scanner sc, Storage storage) {
         System.out.println(this.initMessage);
 
