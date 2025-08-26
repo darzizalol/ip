@@ -26,6 +26,8 @@ public class Parser {
                 handleEventCommand(userInput, savedTasks);
             } else if (userInput.startsWith("delete")){
                 handleDeleteCommand(userInput, savedTasks);
+            } else if (userInput.startsWith("find")) {
+                handleFindCommand(userInput, savedTasks);
             } else {
                 throw new ChatZHException("I'm sorry, but I don't know what that means :-(");
             }
@@ -222,6 +224,27 @@ public class Parser {
         System.out.println("Roger. I've removed this task:");
         System.out.println(deletedTask.getStatusText());
         System.out.println("Now you have " + savedTasks.size() + " tasks in the list.");
+        System.out.println("_________________________");
+    }
+
+    /**
+     * Handle the find command, find the task from the list
+     * 
+     * @param userInput the user input
+     * @param savedTasks the saved tasks
+     */
+    private static void handleFindCommand(String userInput, ArrayList<Task> savedTasks) {
+        String[] parts = userInput.split(" ", 2);
+        String keyword = parts[1].trim();
+        
+        System.out.println("_________________________");
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < savedTasks.size(); i++) {
+            Task task = savedTasks.get(i);
+            if (task.getDescription().contains(keyword)) {
+                System.out.println(String.valueOf(i + 1) + "." + task.getStatusText());
+            }
+        }
         System.out.println("_________________________");
     }
 
