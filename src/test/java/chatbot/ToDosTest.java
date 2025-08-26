@@ -5,8 +5,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 public class ToDosTest {
+
+    /**
+     * Testing methods: getStatusText() and toFileFormat()
+     */
     @Test
-    // Testing methods: getStatusText() and toFileFormat()
     public void getStatusText_and_toFileFormat_validInputs() {
         ToDos t1 = new ToDos("read book", false);
         ToDos t2 = new ToDos("read book", true);

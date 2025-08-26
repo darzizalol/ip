@@ -3,6 +3,13 @@ import java.util.ArrayList;
 
 public class Parser {
 
+    /**
+     * Handle the user command, log any errors, and determine the command type,
+     * and triggers the respective handler methods
+     * 
+     * @param userInput the user input
+     * @param savedTasks the saved tasks
+     */
     public static void handleUserCommand(String userInput, ArrayList<Task> savedTasks) {
         try {
             if (userInput.equals("list")) {
@@ -33,6 +40,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Handle the list command, print all the saved tasks in the list
+     * 
+     * @param savedTasks the saved tasks
+     */
     private static void handleListCommand(ArrayList<Task> savedTasks) {
         System.out.println("_________________________");
         System.out.println("Here are the tasks in your list:");
@@ -43,6 +55,13 @@ public class Parser {
         System.out.println("_________________________");
     }
 
+    /**
+     * Handle the mark command, mark the task as done or not done
+     * 
+     * @param userInput the user input
+     * @param savedTasks the saved tasks
+     * @param markAsDone whether to mark the task as done
+     */
     private static void handleMarkCommand(String userInput, ArrayList<Task> savedTasks, boolean markAsDone) throws ChatZHException {
         if (savedTasks.isEmpty()) {
             throw new ChatZHException("There are no tasks to mark!");
@@ -76,6 +95,12 @@ public class Parser {
         System.out.println("_________________________");
     }
 
+    /**
+     * Handle the todo command, add a todo task to the list
+     * 
+     * @param userInput the user input
+     * @param savedTasks the saved tasks
+     */
     private static void handleTodoCommand(String userInput, ArrayList<Task> savedTasks) throws ChatZHException {
         String[] parts = userInput.split(" ", 2);
         String description = parts.length > 1 ? parts[1].trim() : "";
@@ -94,6 +119,12 @@ public class Parser {
         System.out.println("_________________________");
     }
 
+    /**
+     * Handle the deadline command, add a deadline task to the list
+     * 
+     * @param userInput the user input
+     * @param savedTasks the saved tasks
+     */
     private static void handleDeadlineCommand(String userInput, ArrayList<Task> savedTasks) throws ChatZHException {
         String[] parts = userInput.split(" ", 2);
         if (parts.length < 2) {
@@ -127,7 +158,13 @@ public class Parser {
         System.out.println("_________________________");
     }
 
-        private static void handleEventCommand(String userInput, ArrayList<Task> savedTasks) throws ChatZHException {
+    /**
+     * Handle the event command, add an event task to the list
+     * 
+     * @param userInput the user input
+     * @param savedTasks the saved tasks
+     */
+    private static void handleEventCommand(String userInput, ArrayList<Task> savedTasks) throws ChatZHException {
         String[] parts = userInput.split(" ", 2);
         if (parts.length < 2) {
             throw new ChatZHException("The description of an event cannot be empty.");
@@ -168,6 +205,12 @@ public class Parser {
         System.out.println("_________________________");
     }
 
+    /**
+     * Handle the delete command, delete the task from the list
+     * 
+     * @param userInput the user input
+     * @param savedTasks the saved tasks
+     */
     private static void handleDeleteCommand(String userInput, ArrayList<Task> savedTasks) {
         String[] parts = userInput.split(" ", 2);
 

@@ -5,8 +5,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 public class DeadlinesTest {
+
+    /**
+     * Testing methods: getStatusText() and toFileFormat()
+     */
     @Test
-    // Testing methods: getStatusText() and toFileFormat()
     public void getStatusText_and_toFileFormat_validInputs() {
         Deadlines d = new Deadlines("submit report", "02/12/2019 1800", false);
 

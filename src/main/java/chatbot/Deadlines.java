@@ -8,12 +8,25 @@ public class Deadlines extends Task {
 
     private LocalDateTime deadline;
 
+    /**
+     * Constructor for Deadlines
+     * 
+     * @param description the description of the deadline
+     * @param deadline the deadline of the task
+     * @param isDone whether the task is done
+     */
     public Deadlines(String description, String deadline, boolean isDone) {
         super(description, isDone);
 
         this.deadline = parseDeadline(deadline);
     }
 
+    /**
+     * Parse the deadline string into a LocalDateTime object
+     * 
+     * @param deadline the deadline string to parse
+     * @return the LocalDateTime object
+     */
     private LocalDateTime parseDeadline(String deadline) {
         DateTimeFormatter[] formatters = {
             DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),  // 02/12/2019 1800
@@ -43,16 +56,31 @@ public class Deadlines extends Task {
             ". Supported formats: dd/MM/yyyy HHmm, d/M/yyyy HHmm, dd/MM/yyyy, d/M/yyyy");
     }
 
+    /**
+     * Get the status text of the deadline
+     * 
+     * @return the status text
+     */
     @Override
     public String getStatusText() {
         return "[D]" + "[" + this.getStatusIcon() + "] " + this.description
                 + " (by: " + this.getDeadline() + ")";
     }
 
+    /**
+     * Get the deadline of the deadline
+     * 
+     * @return the deadline
+     */
     public String getDeadline() {
         return this.deadline.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
 
+    /**
+     * Get the file format of the deadline
+     * 
+     * @return the file format
+     */
     @Override
     public String toFileFormat() {
         return "D | " + (isTaskDone() ? "1" : "0") + " | " + this.description + " | " + this.getDeadline();
