@@ -1,6 +1,18 @@
 package chatbot;
 import java.util.Scanner;
 
+/**
+ * ChatZH is a task management chatbot application that allows users to manage their tasks,
+ * including todos, deadlines, and events. The application provides an interactive command-line
+ * interface for adding, listing, marking, and deleting tasks.
+ *
+ * <p>The application automatically persists task data to a file and loads it when restarted,
+ * ensuring that user tasks are preserved between sessions.
+ *
+ * @author Fang ZhengHao
+ * @version 1.0
+ * @since 1.0
+ */
 public class ChatZH {
 
     private static final String DATA_FILE_PATH = "./data/tasks.txt";
@@ -10,7 +22,6 @@ public class ChatZH {
 
     /**
      * Constructor for ChatZH
-     * 
      * @param filePath the path to the data file
      */
     public ChatZH(String filePath) {
@@ -21,8 +32,6 @@ public class ChatZH {
 
     /**
      * Run the chatbot
-     * 
-     * @return void
      */
     public void run() {
         Scanner sc = new Scanner(System.in);
@@ -31,7 +40,6 @@ public class ChatZH {
 
     /**
      * Main method to run the chatbot
-     * 
      * @param args command line arguments
      */
     public static void main(String[] args) {

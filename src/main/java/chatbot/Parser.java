@@ -1,12 +1,18 @@
 package chatbot;
 import java.util.ArrayList;
 
+/**
+ * Parser is the class that handles the user command.
+ * @author Fang ZhengHao
+ * @version 1.0
+ * @since 1.0
+ */
 public class Parser {
 
     /**
      * Handle the user command, log any errors, and determine the command type,
      * and triggers the respective handler methods
-     * 
+     *
      * @param userInput the user input
      * @param savedTasks the saved tasks
      */
@@ -24,7 +30,7 @@ public class Parser {
                 handleDeadlineCommand(userInput, savedTasks);
             } else if (userInput.startsWith("event")) {
                 handleEventCommand(userInput, savedTasks);
-            } else if (userInput.startsWith("delete")){
+            } else if (userInput.startsWith("delete")) {
                 handleDeleteCommand(userInput, savedTasks);
             } else if (userInput.startsWith("find")) {
                 handleFindCommand(userInput, savedTasks);
@@ -44,7 +50,7 @@ public class Parser {
 
     /**
      * Handle the list command, print all the saved tasks in the list
-     * 
+     *
      * @param savedTasks the saved tasks
      */
     private static void handleListCommand(ArrayList<Task> savedTasks) {
@@ -59,12 +65,13 @@ public class Parser {
 
     /**
      * Handle the mark command, mark the task as done or not done
-     * 
+     *
      * @param userInput the user input
      * @param savedTasks the saved tasks
      * @param markAsDone whether to mark the task as done
      */
-    private static void handleMarkCommand(String userInput, ArrayList<Task> savedTasks, boolean markAsDone) throws ChatZHException {
+    private static void handleMarkCommand(String userInput, ArrayList<Task> savedTasks, boolean markAsDone)
+            throws ChatZHException {
         if (savedTasks.isEmpty()) {
             throw new ChatZHException("There are no tasks to mark!");
         }
@@ -86,8 +93,8 @@ public class Parser {
 
         Task task = savedTasks.get(idx);
         task.setStatus(markAsDone);
-        
         System.out.println("_________________________");
+
         if (markAsDone) {
             System.out.println("Nice! I've marked this task as done:");
         } else {
@@ -99,21 +106,19 @@ public class Parser {
 
     /**
      * Handle the todo command, add a todo task to the list
-     * 
+     *
      * @param userInput the user input
      * @param savedTasks the saved tasks
      */
     private static void handleTodoCommand(String userInput, ArrayList<Task> savedTasks) throws ChatZHException {
         String[] parts = userInput.split(" ", 2);
         String description = parts.length > 1 ? parts[1].trim() : "";
-        
         if (description.isEmpty()) {
             throw new ChatZHException("The description of a todo cannot be empty.");
         }
 
-        ToDos todo = new ToDos(description, false);
+        ToDo todo = new ToDo(description, false);
         savedTasks.add(todo);
-        
         System.out.println("_________________________");
         System.out.println("Got it. I've added this task:");
         System.out.println(todo.getStatusText());
@@ -123,7 +128,7 @@ public class Parser {
 
     /**
      * Handle the deadline command, add a deadline task to the list
-     * 
+     *
      * @param userInput the user input
      * @param savedTasks the saved tasks
      */
@@ -145,14 +150,12 @@ public class Parser {
 
         String description = parts2[0].trim();
         String deadline = parts2[1].trim();
-        
         if (description.isEmpty() || deadline.isEmpty()) {
             throw new ChatZHException("Both description and deadline cannot be empty.");
         }
 
-        Deadlines ddl = new Deadlines(description, deadline, false);
+        Deadline ddl = new Deadline(description, deadline, false);
         savedTasks.add(ddl);
-        
         System.out.println("_________________________");
         System.out.println("Got it. I've added this task:");
         System.out.println(ddl.getStatusText());
@@ -162,7 +165,7 @@ public class Parser {
 
     /**
      * Handle the event command, add an event task to the list
-     * 
+     *
      * @param userInput the user input
      * @param savedTasks the saved tasks
      */
@@ -184,7 +187,6 @@ public class Parser {
 
         String description = parts2[0].trim();
         String times = parts2[1].trim();
-        
         String[] timeParts = times.split(" /to ", 2);
         if (timeParts.length < 2) {
             throw new ChatZHException("Please specify end time using /to keyword.");
@@ -192,14 +194,12 @@ public class Parser {
 
         String startTime = timeParts[0].trim();
         String endTime = timeParts[1].trim();
-        
         if (description.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
             throw new ChatZHException("Description, start time, and end time cannot be empty.");
         }
 
-        Events event = new Events(description, startTime, endTime, false);
+        Event event = new Event(description, startTime, endTime, false);
         savedTasks.add(event);
-        
         System.out.println("_________________________");
         System.out.println("Got it. I've added this task:");
         System.out.println(event.getStatusText());
@@ -209,7 +209,7 @@ public class Parser {
 
     /**
      * Handle the delete command, delete the task from the list
-     * 
+     *
      * @param userInput the user input
      * @param savedTasks the saved tasks
      */
@@ -229,14 +229,13 @@ public class Parser {
 
     /**
      * Handle the find command, find the task from the list
-     * 
+     *
      * @param userInput the user input
      * @param savedTasks the saved tasks
      */
     private static void handleFindCommand(String userInput, ArrayList<Task> savedTasks) {
         String[] parts = userInput.split(" ", 2);
         String keyword = parts[1].trim();
-        
         System.out.println("_________________________");
         System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < savedTasks.size(); i++) {

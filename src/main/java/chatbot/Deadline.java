@@ -1,21 +1,29 @@
 package chatbot;
-import java.time.LocalDateTime;
+
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class Deadlines extends Task {
+/**
+ * Deadlines is a task that has a deadline.
+ *
+ * @author Fang ZhengHao
+ * @version 1.0
+ * @since 1.0
+ */
+public class Deadline extends Task {
 
     private LocalDateTime deadline;
 
     /**
      * Constructor for Deadlines
-     * 
+     *
      * @param description the description of the deadline
      * @param deadline the deadline of the task
      * @param isDone whether the task is done
      */
-    public Deadlines(String description, String deadline, boolean isDone) {
+    public Deadline(String description, String deadline, boolean isDone) {
         super(description, isDone);
 
         this.deadline = parseDeadline(deadline);
@@ -23,18 +31,18 @@ public class Deadlines extends Task {
 
     /**
      * Parse the deadline string into a LocalDateTime object
-     * 
+     *
      * @param deadline the deadline string to parse
      * @return the LocalDateTime object
      */
     private LocalDateTime parseDeadline(String deadline) {
         DateTimeFormatter[] formatters = {
-            DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),  // 02/12/2019 1800
-            DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),    // 2/12/2019 1800
-            DateTimeFormatter.ofPattern("dd/MM/yyyy"),       // 02/09/2019
-            DateTimeFormatter.ofPattern("d/M/yyyy"),         // 2/9/2019
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"), // 02/12/2019 1800
+            DateTimeFormatter.ofPattern("d/M/yyyy HHmm"), // 2/12/2019 1800
+            DateTimeFormatter.ofPattern("dd/MM/yyyy"), // 02/09/2019
+            DateTimeFormatter.ofPattern("d/M/yyyy"), // 2/9/2019
             DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"), // 02/12/2019 18:00
-            DateTimeFormatter.ofPattern("d/M/yyyy HH:mm")    // 2/12/2019 18:00
+            DateTimeFormatter.ofPattern("d/M/yyyy HH:mm") // 2/12/2019 18:00
         };
 
         for (DateTimeFormatter formatter : formatters) {
@@ -51,14 +59,14 @@ public class Deadlines extends Task {
                 continue;
             }
         }
-    
-        throw new IllegalArgumentException("Unable to parse deadline: " + deadline + 
-            ". Supported formats: dd/MM/yyyy HHmm, d/M/yyyy HHmm, dd/MM/yyyy, d/M/yyyy");
+
+        throw new IllegalArgumentException("Unable to parse deadline: " + deadline
+            + ". Supported formats: dd/MM/yyyy HHmm, d/M/yyyy HHmm, dd/MM/yyyy, d/M/yyyy");
     }
 
     /**
      * Get the status text of the deadline
-     * 
+     *
      * @return the status text
      */
     @Override
@@ -69,7 +77,7 @@ public class Deadlines extends Task {
 
     /**
      * Get the deadline of the deadline
-     * 
+     *
      * @return the deadline
      */
     public String getDeadline() {
@@ -78,7 +86,7 @@ public class Deadlines extends Task {
 
     /**
      * Get the file format of the deadline
-     * 
+     *
      * @return the file format
      */
     @Override
