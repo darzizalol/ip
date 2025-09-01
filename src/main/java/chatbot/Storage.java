@@ -1,18 +1,25 @@
 package chatbot;
-import java.util.ArrayList;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.File;
+import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.FileNotFoundException;
 
+/**
+ * Storage is the class that handles the storage of the tasks.
+ * @author Fang ZhengHao
+ * @version 1.0
+ * @since 1.0
+ */
 public class Storage {
 
     private String filePath;
 
     /**
      * Constructor for Storage
-     * 
+     *
      * @param filePath the path to the data file
      */
     public Storage(String filePath) {
@@ -21,7 +28,7 @@ public class Storage {
 
     /**
      * Save the tasks to the storage file
-     * 
+     *
      * @param tasks the tasks to save
      * @return the saved tasks
      */
@@ -42,7 +49,7 @@ public class Storage {
 
     /**
      * Load the tasks from the storage file
-     * 
+     *
      * @return the loaded tasks
      */
     public ArrayList<Task> loadTasks() {
@@ -63,40 +70,36 @@ public class Storage {
                 System.out.println("Error creating file: " + e.getMessage());
             }
         }
-        
         try {
             Scanner s = new Scanner(file);
             while (s.hasNextLine()) {
                 String[] parts = s.nextLine().split("\\|");
-    
                 for (int i = 0; i < parts.length; i++) {
                     parts[i] = parts[i].trim();
                 }
-    
                 Task task;
-    
                 if (parts[0].equals("T")) {
                     if (parts[1].equals("1")) {
-                        task = new ToDos(parts[2], true);
+                        task = new ToDo(parts[2], true);
                     } else {
-                        task = new ToDos(parts[2], false);
+                        task = new ToDo(parts[2], false);
                     }
                     tasks.add(task);
                 } else if (parts[0].equals("D")) {
                     if (parts[1].equals("1")) {
-                        task = new Deadlines(parts[2], parts[3], true);
+                        task = new Deadline(parts[2], parts[3], true);
                     } else {
-                        task = new Deadlines(parts[2], parts[3], false);
+                        task = new Deadline(parts[2], parts[3], false);
                     }
                     tasks.add(task);
                 } else if (parts[0].equals("E")) {
                     if (parts[1].equals("1")) {
-                        task = new Events(parts[2], parts[3], parts[4], true);
+                        task = new Event(parts[2], parts[3], parts[4], true);
                     } else {
-                        task = new Events(parts[2], parts[3], parts[4], false);
+                        task = new Event(parts[2], parts[3], parts[4], false);
                     }
                     tasks.add(task);
-                }    
+                }
             }
             s.close();
         } catch (FileNotFoundException e) {

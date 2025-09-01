@@ -2,21 +2,28 @@ package chatbot;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * UI is the class that handles the UI of the chatbot.
+ * @author Fang ZhengHao
+ * @version 1.0
+ * @since 1.0
+ */
 public class UI {
 
-    private final String initMessage = "_________________________\n" +
-                "Hello! I'm ChatZH\n" +
-                "What can I do for you?\n" +
-                "_________________________\n";
+    private final String initMessage = "_________________________\n"
+            + "Hello! I'm ChatZH\n"
+            + "What can I do for you?\n"
+            + "_________________________\n";
 
     /**
      * Constructor for UI
      */
+    @SuppressWarnings("checkstyle:MethodParamPad")
     public UI () {}
 
     /**
      * Run the UI
-     * 
+     *
      * @param sc the scanner to read user input
      * @param storage the storage in charge of saving and loading tasks
      */
@@ -28,7 +35,6 @@ public class UI {
         // Detect user inputs
         while (sc.hasNextLine()) {
             String userInput = sc.nextLine();
-            
             if (userInput.equals("bye")) {
 
                 // Save Tasks to DATA_FILE_PATH
@@ -36,13 +42,11 @@ public class UI {
 
                 System.out.println("Bye. Hope to see you again soon!");
                 sc.close();
-                
                 break;
             }
 
 
             Parser.handleUserCommand(userInput, savedTasks);
-        
         }
 
     }

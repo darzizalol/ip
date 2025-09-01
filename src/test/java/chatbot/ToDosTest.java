@@ -11,8 +11,8 @@ public class ToDosTest {
      */
     @Test
     public void getStatusText_and_toFileFormat_validInputs() {
-        ToDos t1 = new ToDos("read book", false);
-        ToDos t2 = new ToDos("read book", true);
+        ToDo t1 = new ToDo("read book", false);
+        ToDo t2 = new ToDo("read book", true);
 
         assertEquals("[T][ ] read book", t1.getStatusText());
         assertEquals("[T][X] read book", t2.getStatusText());
