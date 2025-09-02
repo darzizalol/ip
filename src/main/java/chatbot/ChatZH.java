@@ -47,4 +47,11 @@ public class ChatZH {
         ChatZH chatZH = new ChatZH(DATA_FILE_PATH);
         chatZH.run();
     }
+
+    /**
+     * Generates a response for the GUI.
+     */
+    public String getResponse(String userInput) {
+        return this.ui.run(userInput, this.storage);
+    }
 }

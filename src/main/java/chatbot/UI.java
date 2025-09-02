@@ -48,6 +48,26 @@ public class UI {
 
             Parser.handleUserCommand(userInput, savedTasks);
         }
+    }
 
+    /**
+     * Run the GUI
+     *
+     * @param userInput the userInput read by ChatZH
+     * @param storage the storage in charge of saving and loading tasks
+     * @return
+     */
+    public String run(String userInput, Storage storage) {
+
+        ArrayList<Task> savedTasks = storage.loadTasks();
+        String response = "";
+        if (userInput.equals("bye")) {
+            response = "Bye. Hope to see you again soon!";
+        } else {
+            response = GuiParser.handleGuiUserCommand(userInput, savedTasks);
+        }
+        // Save Tasks to DATA_FILE_PATH
+        storage.saveTasks(savedTasks);
+        return response;
     }
 }
