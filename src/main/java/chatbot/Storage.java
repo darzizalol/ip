@@ -87,7 +87,6 @@ public class Storage {
                     task = parseEvent(parts);
                     tasks.add(task);
                 }
-                assert false : "We should not reach here";
             }
             s.close();
         } catch (FileNotFoundException e) {
