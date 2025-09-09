@@ -28,6 +28,8 @@ public class Event extends Task {
         super(description, isDone);
         this.startTime = parseDateTime(startTime);
         this.endTime = parseDateTime(endTime);
+        assert this.startTime != null : "Start time should not be null after parsing";
+        assert this.endTime != null : "End time should not be null after parsing";
     }
 
     /**

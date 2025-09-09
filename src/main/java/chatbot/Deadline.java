@@ -27,6 +27,7 @@ public class Deadline extends Task {
         super(description, isDone);
 
         this.deadline = parseDeadline(deadline);
+        assert this.deadline != null : "Deadline should not be null after parsing";
     }
 
     /**
@@ -56,6 +57,7 @@ public class Deadline extends Task {
                     return LocalDateTime.parse(deadline, formatter);
                 }
             } catch (DateTimeParseException e) {
+                // Skip to the next formatter
                 continue;
             }
         }

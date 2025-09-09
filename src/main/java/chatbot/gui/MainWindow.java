@@ -27,10 +27,10 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        
         // Add initial welcome message
         String initMessage = "_________________________\n"
                 + "Hello! I'm ChatZH\n"
@@ -59,8 +59,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
-        
-        // Close the application if user says bye
+
         if (input.equals("bye")) {
             Platform.exit();
         }

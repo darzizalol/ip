@@ -198,6 +198,8 @@ public class GuiParser {
             throw new ChatZHException("The description of an event cannot be empty.");
         }
 
+        assert !rest.isEmpty();
+
         String[] parts2 = rest.split(" /from ", 2);
         if (parts2.length < 2) {
             throw new ChatZHException("Please specify start time using /from keyword.");
