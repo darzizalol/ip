@@ -37,14 +37,12 @@ public class UI {
             String userInput = sc.nextLine();
             if (userInput.equals("bye")) {
 
-                // Save Tasks to DATA_FILE_PATH
                 storage.saveTasks(savedTasks);
 
                 System.out.println("Bye. Hope to see you again soon!");
                 sc.close();
                 break;
             }
-
 
             Parser.handleUserCommand(userInput, savedTasks);
         }

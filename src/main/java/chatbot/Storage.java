@@ -60,7 +60,6 @@ public class Storage {
             try {
                 // Create parent directories if they don't exist
                 file.getParentFile().mkdirs();
-                // Create the file
                 boolean hasCreatedFile = file.createNewFile();
                 if (hasCreatedFile) {
                     System.out.println("Created a brand new list!");
@@ -82,6 +81,7 @@ public class Storage {
                     if (parts[1].equals("1")) {
                         task = new ToDo(parts[2], true);
                     } else {
+                        assert parts[1].equals("0");
                         task = new ToDo(parts[2], false);
                     }
                     tasks.add(task);
@@ -89,6 +89,7 @@ public class Storage {
                     if (parts[1].equals("1")) {
                         task = new Deadline(parts[2], parts[3], true);
                     } else {
+                        assert parts[1].equals("0");
                         task = new Deadline(parts[2], parts[3], false);
                     }
                     tasks.add(task);
@@ -96,6 +97,7 @@ public class Storage {
                     if (parts[1].equals("1")) {
                         task = new Event(parts[2], parts[3], parts[4], true);
                     } else {
+                        assert parts[1].equals("0");
                         task = new Event(parts[2], parts[3], parts[4], false);
                     }
                     tasks.add(task);
