@@ -16,13 +16,13 @@ public class UI {
             + "_________________________\n";
 
     /**
-     * Constructor for UI
+     * Constructor for UI on Command Line Interface
      */
     @SuppressWarnings("checkstyle:MethodParamPad")
     public UI () {}
 
     /**
-     * Run the UI
+     * Run the UI on the Command Line Interface
      *
      * @param sc the scanner to read user input
      * @param storage the storage in charge of saving and loading tasks
@@ -49,11 +49,11 @@ public class UI {
     }
 
     /**
-     * Run the GUI
+     * Run the UI on the GUI
      *
      * @param userInput the userInput read by ChatZH
      * @param storage the storage in charge of saving and loading tasks
-     * @return
+     * @return the response to the user
      */
     public String run(String userInput, Storage storage) {
 
@@ -64,7 +64,6 @@ public class UI {
         } else {
             response = GuiParser.handleGuiUserCommand(userInput, savedTasks);
         }
-        // Save Tasks to DATA_FILE_PATH
         storage.saveTasks(savedTasks);
         return response;
     }
