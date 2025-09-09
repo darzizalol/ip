@@ -78,30 +78,16 @@ public class Storage {
                 }
                 Task task;
                 if (parts[0].equals("T")) {
-                    if (parts[1].equals("1")) {
-                        task = new ToDo(parts[2], true);
-                    } else {
-                        assert parts[1].equals("0");
-                        task = new ToDo(parts[2], false);
-                    }
+                    task = parseTodo(parts);
                     tasks.add(task);
                 } else if (parts[0].equals("D")) {
-                    if (parts[1].equals("1")) {
-                        task = new Deadline(parts[2], parts[3], true);
-                    } else {
-                        assert parts[1].equals("0");
-                        task = new Deadline(parts[2], parts[3], false);
-                    }
+                    task = parseDeadline(parts);
                     tasks.add(task);
                 } else if (parts[0].equals("E")) {
-                    if (parts[1].equals("1")) {
-                        task = new Event(parts[2], parts[3], parts[4], true);
-                    } else {
-                        assert parts[1].equals("0");
-                        task = new Event(parts[2], parts[3], parts[4], false);
-                    }
+                    task = parseEvent(parts);
                     tasks.add(task);
                 }
+                assert false : "We should not reach here";
             }
             s.close();
         } catch (FileNotFoundException e) {
@@ -109,5 +95,44 @@ public class Storage {
             System.out.println("_________________________");
         }
         return tasks;
+    }
+
+    /**
+     * Parse the string array into a todo task
+     * @param parts
+     * @return an todo task
+     */
+    public ToDo parseTodo(String[] parts) {
+        if (parts[1].equals("1")) {
+            return new ToDo(parts[2], true);
+        } else {
+            return new ToDo(parts[2], false);
+        }
+    }
+
+    /**
+     * Parse the string array into a deadline task
+     * @param parts
+     * @return a deadline task
+     */
+    public Deadline parseDeadline(String[] parts) {
+        if (parts[1].equals("1")) {
+            return new Deadline(parts[2], parts[3], true);
+        } else {
+            return new Deadline(parts[2], parts[3], false);
+        }
+    }
+
+    /**
+     * Parse the string array into an event task
+     * @param parts
+     * @return an event task
+     */
+    public Event parseEvent(String[] parts) {
+        if (parts[1].equals("1")) {
+            return new Event(parts[2], parts[3], parts[4], true);
+        } else {
+            return new Event(parts[2], parts[3], parts[4], false);
+        }
     }
 }
