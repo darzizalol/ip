@@ -60,7 +60,6 @@ public class Storage {
             try {
                 // Create parent directories if they don't exist
                 file.getParentFile().mkdirs();
-                // Create the file
                 boolean hasCreatedFile = file.createNewFile();
                 if (hasCreatedFile) {
                     System.out.println("Created a brand new list!");
