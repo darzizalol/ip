@@ -105,4 +105,39 @@ public class Event extends Task {
         return "E | " + (isTaskDone() ? "1" : "0") + " | " + description
                 + " | " + this.getStartTime() + " | " + this.getEndTime();
     }
+
+    /**
+     * Set the time of the event
+     * @param time start time and end time
+     */
+    @Override
+    public void setTime(String... time) {
+        this.startTime = parseDateTime(time[0]);
+        this.endTime = parseDateTime(time[1]);
+    }
+
+    /**
+     * Set the start time of the event
+     * @param startTime start time
+     */
+    public void setStartTime(String startTime) {
+        this.startTime = parseDateTime(startTime);
+    }
+    
+    /**
+     * Set the end time of the event
+     * @param endTime end time
+     */
+    public void setEndTime(String endTime) {
+        this.endTime = parseDateTime(endTime);
+    }
+
+    /**
+     * Get the type of the event
+     * @return the type of the event
+     */
+    @Override
+    public String getType() {
+        return "E";
+    }
 }

@@ -15,6 +15,7 @@ public class GuiParser {
      *
      * @param userInput the user input
      * @param savedTasks the saved tasks
+     * @return the response to the user
      */
     public static String handleGuiUserCommand(String userInput, ArrayList<Task> savedTasks) {
         try {
@@ -34,6 +35,10 @@ public class GuiParser {
                 return handleGuiDeleteCommand(userInput, savedTasks);
             } else if (userInput.startsWith("find")) {
                 return handleGuiFindCommand(userInput, savedTasks);
+            } else if (userInput.startsWith("update")) {
+                return handleGuiUpdateNameCommand(userInput, savedTasks);
+            } else if (userInput.startsWith("edit")) {
+                return handleGuiUpdateTimeCommand(userInput, savedTasks);
             } else {
                 throw new ChatZHException("I'm sorry, but I don't know what that means :-(");
             }
@@ -52,6 +57,7 @@ public class GuiParser {
      * Handle the list command, print all the saved tasks in the list
      *
      * @param savedTasks the saved tasks
+     * @return the response to the user
      */
     private static String handleGuiListCommand(ArrayList<Task> savedTasks) {
         StringBuilder sb = new StringBuilder();
@@ -72,6 +78,8 @@ public class GuiParser {
      * @param userInput the user input
      * @param savedTasks the saved tasks
      * @param markAsDone whether to mark the task as done
+     * @return the response to the user
+     * @throws ChatZHException
      */
     private static String handleGuiMarkCommand(String userInput, ArrayList<Task> savedTasks, boolean markAsDone)
             throws ChatZHException {
@@ -117,6 +125,8 @@ public class GuiParser {
      *
      * @param userInput the user input
      * @param savedTasks the saved tasks
+     * @return the response to the user
+     * @throws ChatZHException
      */
     private static String handleGuiTodoCommand(String userInput, ArrayList<Task> savedTasks) throws ChatZHException {
         String[] parts = userInput.split(" ", 2);
@@ -143,6 +153,8 @@ public class GuiParser {
      *
      * @param userInput the user input
      * @param savedTasks the saved tasks
+     * @return the response to the user
+     * @throws ChatZHException
      */
     private static String handleGuiDeadlineCommand(String userInput, ArrayList<Task> savedTasks)
             throws ChatZHException {
@@ -186,6 +198,8 @@ public class GuiParser {
      *
      * @param userInput the user input
      * @param savedTasks the saved tasks
+     * @return the response to the user
+     * @throws ChatZHException
      */
     private static String handleGuiEventCommand(String userInput, ArrayList<Task> savedTasks) throws ChatZHException {
         String[] parts = userInput.split(" ", 2);
@@ -236,11 +250,13 @@ public class GuiParser {
      *
      * @param userInput the user input
      * @param savedTasks the saved tasks
+     * @return the response to the user
+     * @throws ChatZHException
      */
     private static String handleGuiDeleteCommand(String userInput, ArrayList<Task> savedTasks) throws ChatZHException {
         String[] parts = userInput.split(" ", 2);
 
-        if (userInput.length() < 8) {
+        if (parts.length < 2) {
             throw new ChatZHException("Please specify a task number to delete!");
         }
 
@@ -267,6 +283,8 @@ public class GuiParser {
      *
      * @param userInput the user input
      * @param savedTasks the saved tasks
+     * @return the response to the user
+     * @throws ChatZHException
      */
     private static String handleGuiFindCommand(String userInput, ArrayList<Task> savedTasks) throws ChatZHException {
         String[] parts = userInput.split(" ", 2);
@@ -298,5 +316,78 @@ public class GuiParser {
         return sb.toString();
     }
 
+    /**
+     * Handle the update command, update task description
+     * @param userInput
+     * @param savedTasks
+     * @return the response to the user
+     * @throws ChatZHException
+     */
+    private static String handleGuiUpdateNameCommand(String userInput, ArrayList<Task> savedTasks) throws ChatZHException {
+        String[] parts = userInput.split(" ", 3);
+        if (savedTasks.isEmpty()) {
+            throw new ChatZHException("There are no tasks to update!");
+        }
 
+        if (parts.length < 2) {
+            throw new ChatZHException("Please specify a task number to update!");
+        } else if (parts.length < 3) {
+            throw new ChatZHException("Please give the task a new description!");
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("_________________________\n");
+        Task taskToBeUpdated = savedTasks.get(Character.getNumericValue(parts[1].charAt(0)) - 1);
+        sb.append("I've updated Task " + parts[1] + " from " + taskToBeUpdated.getDescription() + " to " + parts[2] + "\n");
+        sb.append("_________________________");
+        taskToBeUpdated.setDescription(parts[2]);
+
+        return sb.toString();
+    }
+
+    /**
+     * Handle the edit command, update task time
+     * @param userInput
+     * @param savedTasks
+     * @return the response to the user
+     * @throws ChatZHException
+     */
+    private static String handleGuiUpdateTimeCommand(String userInput, ArrayList<Task> savedTasks) throws ChatZHException {
+        // Sample user input: edit 1 start 2025-09-09 10:00
+        // Sample user input: edit 1 end 2025-09-09 10:00
+        // Sample user input: edit 2 2025-09-09 10:00
+        
+        String[] parts = userInput.split(" ", 4);
+        if (savedTasks.isEmpty()) {
+            throw new ChatZHException("There are no tasks to update!");
+        }
+
+        if (parts.length < 2) {
+            throw new ChatZHException("Please specify a task number to update!");
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("_________________________\n");
+        Task taskToBeUpdated = savedTasks.get(Character.getNumericValue(parts[1].charAt(0)) - 1);
+        sb.append("I've updated Task " + parts[1] + " from " + taskToBeUpdated.getStatusText() + " to ");
+
+        if (taskToBeUpdated.getType().equals("T")) {
+            taskToBeUpdated.setTime(parts[2]);
+        } else if (taskToBeUpdated.getType().equals("D")) {
+            taskToBeUpdated.setTime(parts[2]);
+        } else if (taskToBeUpdated.getType().equals("E")) {
+            Event event = (Event) taskToBeUpdated;
+            if (parts[2].equals("start")) {
+                event.setStartTime(parts[3]);
+            } else if (parts[2].equals("end")) {
+                event.setEndTime(parts[3]);
+            } else {
+                throw new ChatZHException("Please specify a start or end time to update!");
+            }
+        } 
+
+        sb.append(taskToBeUpdated.getStatusText() + "\n");
+        sb.append("_________________________");
+        return sb.toString();
+    }
 }

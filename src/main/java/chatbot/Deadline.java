@@ -95,4 +95,22 @@ public class Deadline extends Task {
     public String toFileFormat() {
         return "D | " + (isTaskDone() ? "1" : "0") + " | " + this.description + " | " + this.getDeadline();
     }
+
+    /**
+     * Set the time of the deadline
+     * @param time deadline
+     */
+    @Override
+    public void setTime(String... time) {
+        this.deadline = parseDeadline(time[0]);
+    }
+
+    /**
+     * Get the type of the deadline
+     * @return the type of the deadline
+     */
+    @Override
+    public String getType() {
+        return "D";
+    }
 }

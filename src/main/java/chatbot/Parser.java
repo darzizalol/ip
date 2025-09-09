@@ -213,8 +213,12 @@ public class Parser {
      * @param userInput the user input
      * @param savedTasks the saved tasks
      */
-    private static void handleDeleteCommand(String userInput, ArrayList<Task> savedTasks) {
+    private static void handleDeleteCommand(String userInput, ArrayList<Task> savedTasks) throws ChatZHException {
         String[] parts = userInput.split(" ", 2);
+
+        if (parts.length < 2) {
+            throw new ChatZHException("Please specify a task number to delete!");
+        }
 
         int idx = Character.getNumericValue(userInput.charAt(7)) - 1;
 

@@ -18,6 +18,10 @@ public class ToDo extends Task {
         super(description, isDone);
     }
 
+    public ToDo(String description, boolean isDone, String time) {
+        super(description, isDone, time);
+    }
+
     /**
      * Get the status text of the todo
      *
@@ -25,7 +29,11 @@ public class ToDo extends Task {
      */
     @Override
     public String getStatusText() {
-        return "[T]" + "[" + this.getStatusIcon() + "] " + this.description;
+        String statusText = "[T]" + "[" + this.getStatusIcon() + "] " + this.description;
+        if (this.time != null) {
+            statusText += " (" + this.time + ")";
+        }
+        return statusText;
     }
 
     /**

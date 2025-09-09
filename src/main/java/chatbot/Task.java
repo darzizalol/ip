@@ -9,6 +9,7 @@ package chatbot;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String time;
 
     /**
      * Constructor for Task
@@ -19,6 +20,19 @@ public class Task {
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
+    }
+
+    /**
+     * Constructor for Task
+     *
+     * @param description the description of the task
+     * @param isDone whether the task is done
+     * @param time the time of the task
+     */
+    public Task(String description, boolean isDone, String time) {
+        this.description = description;
+        this.isDone = isDone;
+        this.time = time;
     }
 
     /**
@@ -45,7 +59,11 @@ public class Task {
      * @return the status text of the task
      */
     public String getStatusText() {
-        return "[T]" + "[" + this.getStatusIcon() + "] " + this.description;
+        String statusText = "[T]" + "[" + this.getStatusIcon() + "] " + this.description;
+        if (this.time != null) {
+            statusText += " (" + this.time + ")";
+        }
+        return statusText;
     }
 
     /**
@@ -55,6 +73,15 @@ public class Task {
      */
     public void setStatus(boolean status) {
         this.isDone = status;
+    }
+
+    /**
+     * Set the description of the task
+     *
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
@@ -73,5 +100,21 @@ public class Task {
      */
     public boolean isTaskDone() {
         return this.isDone;
+    }
+
+    /**
+     * Set the time of the task
+     * @param time
+     */
+    public void setTime(String... time) {
+        this.time = time[0];
+    }
+
+    /**
+     * Get the type of the task
+     * @return the type of the task
+     */
+    public String getType() {
+        return "T";
     }
 }
