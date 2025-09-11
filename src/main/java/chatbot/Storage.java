@@ -15,7 +15,7 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    private String filePath;
+    private final String filePath;
 
     /**
      * Constructor for Storage
@@ -98,7 +98,7 @@ public class Storage {
 
     /**
      * Parse the string array into a todo task
-     * @param parts
+     * @param parts a String array of the todo description
      * @return an todo task
      */
     public ToDo parseTodo(String[] parts) {
@@ -111,7 +111,7 @@ public class Storage {
 
     /**
      * Parse the string array into a deadline task
-     * @param parts
+     * @param parts a String array of the deadline description
      * @return a deadline task
      */
     public Deadline parseDeadline(String[] parts) {
@@ -124,7 +124,7 @@ public class Storage {
 
     /**
      * Parse the string array into an event task
-     * @param parts
+     * @param parts a String array of the event description
      * @return an event task
      */
     public Event parseEvent(String[] parts) {

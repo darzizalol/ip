@@ -27,11 +27,12 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
-    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    /**
+     * Creates and prompt the first message from the chatbot
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        // Add initial welcome message
         String initMessage = "_________________________\n"
                 + "Hello! I'm ChatZH\n"
                 + "What can I do for you?\n"

@@ -18,8 +18,7 @@ public class UI {
     /**
      * Constructor for UI on Command Line Interface
      */
-    @SuppressWarnings("checkstyle:MethodParamPad")
-    public UI () {}
+    public UI() {}
 
     /**
      * Run the UI on the Command Line Interface
