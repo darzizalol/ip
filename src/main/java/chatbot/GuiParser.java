@@ -40,9 +40,9 @@ public class GuiParser {
             } else if (userInput.startsWith("edit")) {
                 return handleGuiUpdateTimeCommand(userInput, savedTasks);
             } else {
-                throw new ChatZHException("I'm sorry, but I don't know what that means :-(");
+                throw new ChatZhException("I'm sorry, but I don't know what that means :-(");
             }
-        } catch (ChatZHException e) {
+        } catch (ChatZhException e) {
             return "_________________________\n"
                     + "OOPS!!! " + e.getMessage() + "\n"
                     + "_________________________";
@@ -81,9 +81,9 @@ public class GuiParser {
      * @return the response to the user
      */
     private static String handleGuiMarkCommand(String userInput, ArrayList<Task> savedTasks, boolean markAsDone)
-            throws ChatZHException {
+            throws ChatZhException {
         if (savedTasks.isEmpty()) {
-            throw new ChatZHException("There are no tasks to mark!");
+            throw new ChatZhException("There are no tasks to mark!");
         }
 
         int idx;
@@ -94,11 +94,11 @@ public class GuiParser {
                 idx = Character.getNumericValue(userInput.charAt(7)) - 1;
             }
         } catch (StringIndexOutOfBoundsException e) {
-            throw new ChatZHException("Please specify a task number to mark!");
+            throw new ChatZhException("Please specify a task number to mark!");
         }
 
         if (idx < 0 || idx >= savedTasks.size()) {
-            throw new ChatZHException("Invalid task number! Please use a number between 1 and " + savedTasks.size());
+            throw new ChatZhException("Invalid task number! Please use a number between 1 and " + savedTasks.size());
         }
 
         Task task = savedTasks.get(idx);
@@ -127,11 +127,11 @@ public class GuiParser {
      * @return the response to the user
      */
     private static String handleGuiTodoCommand(String userInput, ArrayList<Task> savedTasks)
-            throws ChatZHException {
+            throws ChatZhException {
         String[] parts = userInput.split(" ", 2);
         String description = parts.length > 1 ? parts[1].trim() : "";
         if (description.isEmpty()) {
-            throw new ChatZHException("The description of a todo cannot be empty.");
+            throw new ChatZhException("The description of a todo cannot be empty.");
         }
 
         ToDo todo = new ToDo(description, false);
@@ -155,26 +155,26 @@ public class GuiParser {
      * @return the response to the user
      */
     private static String handleGuiDeadlineCommand(String userInput, ArrayList<Task> savedTasks)
-            throws ChatZHException {
+            throws ChatZhException {
         String[] parts = userInput.split(" ", 2);
         if (parts.length < 2) {
-            throw new ChatZHException("The description of a deadline cannot be empty.");
+            throw new ChatZhException("The description of a deadline cannot be empty.");
         }
 
         String rest = parts[1].trim();
         if (rest.isEmpty()) {
-            throw new ChatZHException("The description of a deadline cannot be empty.");
+            throw new ChatZhException("The description of a deadline cannot be empty.");
         }
 
         String[] parts2 = rest.split(" /by ", 2);
         if (parts2.length < 2) {
-            throw new ChatZHException("Please specify a deadline using /by keyword.");
+            throw new ChatZhException("Please specify a deadline using /by keyword.");
         }
 
         String description = parts2[0].trim();
         String deadline = parts2[1].trim();
         if (description.isEmpty() || deadline.isEmpty()) {
-            throw new ChatZHException("Both description and deadline cannot be empty.");
+            throw new ChatZhException("Both description and deadline cannot be empty.");
         }
 
         Deadline ddl = new Deadline(description, deadline, false);
@@ -198,35 +198,35 @@ public class GuiParser {
      * @param savedTasks the saved tasks
      * @return the response to the user
      */
-    private static String handleGuiEventCommand(String userInput, ArrayList<Task> savedTasks) throws ChatZHException {
+    private static String handleGuiEventCommand(String userInput, ArrayList<Task> savedTasks) throws ChatZhException {
         String[] parts = userInput.split(" ", 2);
         if (parts.length < 2) {
-            throw new ChatZHException("The description of an event cannot be empty.");
+            throw new ChatZhException("The description of an event cannot be empty.");
         }
 
         String rest = parts[1].trim();
         if (rest.isEmpty()) {
-            throw new ChatZHException("The description of an event cannot be empty.");
+            throw new ChatZhException("The description of an event cannot be empty.");
         }
 
         assert !rest.isEmpty();
 
         String[] parts2 = rest.split(" /from ", 2);
         if (parts2.length < 2) {
-            throw new ChatZHException("Please specify start time using /from keyword.");
+            throw new ChatZhException("Please specify start time using /from keyword.");
         }
 
         String description = parts2[0].trim();
         String times = parts2[1].trim();
         String[] timeParts = times.split(" /to ", 2);
         if (timeParts.length < 2) {
-            throw new ChatZHException("Please specify end time using /to keyword.");
+            throw new ChatZhException("Please specify end time using /to keyword.");
         }
 
         String startTime = timeParts[0].trim();
         String endTime = timeParts[1].trim();
         if (description.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
-            throw new ChatZHException("Description, start time, and end time cannot be empty.");
+            throw new ChatZhException("Description, start time, and end time cannot be empty.");
         }
 
         Event event = new Event(description, startTime, endTime, false);
@@ -249,17 +249,17 @@ public class GuiParser {
      * @param savedTasks the saved tasks
      * @return the response to the user
      */
-    private static String handleGuiDeleteCommand(String userInput, ArrayList<Task> savedTasks) throws ChatZHException {
+    private static String handleGuiDeleteCommand(String userInput, ArrayList<Task> savedTasks) throws ChatZhException {
         String[] parts = userInput.split(" ", 2);
 
         if (parts.length < 2) {
-            throw new ChatZHException("Please specify a task number to delete!");
+            throw new ChatZhException("Please specify a task number to delete!");
         }
 
         int idx = Character.getNumericValue(userInput.charAt(7)) - 1;
 
         if (idx < 0 || idx >= savedTasks.size()) {
-            throw new ChatZHException("Invalid task number! Please use a number between 1 and " + savedTasks.size());
+            throw new ChatZhException("Invalid task number! Please use a number between 1 and " + savedTasks.size());
         }
 
         Task deletedTask = savedTasks.remove(idx);
@@ -281,10 +281,10 @@ public class GuiParser {
      * @param savedTasks the saved tasks
      * @return the response to the user
      */
-    private static String handleGuiFindCommand(String userInput, ArrayList<Task> savedTasks) throws ChatZHException {
+    private static String handleGuiFindCommand(String userInput, ArrayList<Task> savedTasks) throws ChatZhException {
         String[] parts = userInput.split(" ", 2);
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            throw new ChatZHException("Please provide a keyword to search for.");
+            throw new ChatZhException("Please provide a keyword to search for.");
         }
 
         String keyword = parts[1].trim();
@@ -318,16 +318,16 @@ public class GuiParser {
      * @return the response to the user
      */
     private static String handleGuiUpdateNameCommand(String userInput, ArrayList<Task> savedTasks)
-            throws ChatZHException {
+            throws ChatZhException {
         String[] parts = userInput.split(" ", 3);
         if (savedTasks.isEmpty()) {
-            throw new ChatZHException("There are no tasks to update!");
+            throw new ChatZhException("There are no tasks to update!");
         }
 
         if (parts.length < 2) {
-            throw new ChatZHException("Please specify a task number to update!");
+            throw new ChatZhException("Please specify a task number to update!");
         } else if (parts.length < 3) {
-            throw new ChatZHException("Please give the task a new description!");
+            throw new ChatZhException("Please give the task a new description!");
         }
 
         StringBuilder sb = new StringBuilder();
@@ -348,17 +348,17 @@ public class GuiParser {
      * @return the response to the user
      */
     private static String handleGuiUpdateTimeCommand(String userInput, ArrayList<Task> savedTasks)
-            throws ChatZHException {
+            throws ChatZhException {
         // Sample user input: edit 1 start 09/09/2025 10:00
         // Sample user input: edit 1 end 09/09/2025 10:00
         // Sample user input: edit 2 09/09/2025 10:00
         String[] parts = userInput.split(" ", 4);
         if (savedTasks.isEmpty()) {
-            throw new ChatZHException("There are no tasks to update!");
+            throw new ChatZhException("There are no tasks to update!");
         }
 
         if (parts.length < 2) {
-            throw new ChatZHException("Please specify a task number to update!");
+            throw new ChatZhException("Please specify a task number to update!");
         }
 
         StringBuilder sb = new StringBuilder();
@@ -377,7 +377,7 @@ public class GuiParser {
             } else if (parts[2].equals("end")) {
                 event.setEndTime(parts[3]);
             } else {
-                throw new ChatZHException("Please specify a start or end time to update!");
+                throw new ChatZhException("Please specify a start or end time to update!");
             }
         }
 

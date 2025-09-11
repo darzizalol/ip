@@ -1,6 +1,6 @@
 package chatbot.gui;
 
-import chatbot.ChatZH;
+import chatbot.ChatZh;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,7 +22,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private ChatZH chatZH;
+    private ChatZh chatZH;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -43,7 +43,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Duke instance */
-    public void setDuke(ChatZH chatZH) {
+    public void setDuke(ChatZh chatZH) {
         this.chatZH = chatZH;
     }
 

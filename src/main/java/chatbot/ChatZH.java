@@ -13,7 +13,7 @@ import java.util.Scanner;
  * @version 1.0
  * @since 1.0
  */
-public class ChatZH {
+public class ChatZh {
 
     private static final String DATA_FILE_PATH = "./data/tasks.txt";
     private Storage storage;
@@ -24,7 +24,7 @@ public class ChatZH {
      * Constructor for ChatZH
      * @param filePath the path to the data file
      */
-    public ChatZH(String filePath) {
+    public ChatZh(String filePath) {
         this.storage = new Storage(filePath);
         this.taskList = new TaskList(this.storage.loadTasks());
         this.ui = new UI();
@@ -44,8 +44,8 @@ public class ChatZH {
      */
     public static void main(String[] args) {
 
-        ChatZH chatZH = new ChatZH(DATA_FILE_PATH);
-        chatZH.run();
+        ChatZh chatZh = new ChatZh(DATA_FILE_PATH);
+        chatZh.run();
     }
 
     /**

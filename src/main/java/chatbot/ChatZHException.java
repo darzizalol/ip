@@ -1,20 +1,19 @@
 package chatbot;
 
 /**
- * ChatZHException is the exception class for ChatZH.
+ * ChatZhException is the exception class for ChatZh.
  * @author Fang ZhengHao
  * @version 1.0
  * @since 1.0
  */
-@SuppressWarnings("checkstyle:AbbreviationAsWordInName")
-public class ChatZHException extends Exception {
+public class ChatZhException extends Exception {
 
     /**
-     * Constructor for ChatZHException
+     * Constructor for ChatZhException
      *
      * @param message the message to be displayed
      */
-    public ChatZHException(String message) {
+    public ChatZhException(String message) {
         super(message);
     }
 }
