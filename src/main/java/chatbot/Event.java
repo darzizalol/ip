@@ -123,10 +123,10 @@ public class Event extends Task {
     public void setStartTime(String startTime) {
         this.startTime = parseDateTime(startTime);
     }
-    
+
     /**
      * Set the end time of the event
-     * @param endTime end time
+     * @param endTime start time
      */
     public void setEndTime(String endTime) {
         this.endTime = parseDateTime(endTime);

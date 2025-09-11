@@ -20,7 +20,7 @@ public class TaskList {
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
-    
+
     /**
      * Add a task to the list
      *

@@ -1,6 +1,6 @@
 package chatbot;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +10,7 @@ public class ToDosTest {
      * Testing methods: getStatusText() and toFileFormat()
      */
     @Test
-    public void getStatusText_and_toFileFormat_validInputs() {
+    public void getStatusTextToFileFormat_validInputs() {
         ToDo t1 = new ToDo("read book", false);
         ToDo t2 = new ToDo("read book", true);
 

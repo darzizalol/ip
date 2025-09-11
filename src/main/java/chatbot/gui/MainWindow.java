@@ -1,6 +1,6 @@
 package chatbot.gui;
 
-import chatbot.ChatZH;
+import chatbot.ChatZh;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,16 +22,17 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private ChatZH chatZH;
+    private ChatZh chatZH;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
-    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    /**
+     * Creates and prompt the first message from the chatbot
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        // Add initial welcome message
         String initMessage = "_________________________\n"
                 + "Hello! I'm ChatZH\n"
                 + "What can I do for you?\n"
@@ -42,7 +43,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Duke instance */
-    public void setDuke(ChatZH chatZH) {
+    public void setDuke(ChatZh chatZH) {
         this.chatZH = chatZH;
     }
 

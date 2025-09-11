@@ -2,7 +2,7 @@ package chatbot.gui;
 
 import java.io.IOException;
 
-import chatbot.ChatZH;
+import chatbot.ChatZh;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private ChatZH chatZH = new ChatZH("../data/tasks.txt");
+    private ChatZh chatZh = new ChatZh("../data/tasks.txt");
 
     @Override
     public void start(Stage stage) {
@@ -23,7 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(chatZH);
+            fxmlLoader.<MainWindow>getController().setDuke(chatZh);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
