@@ -1,5 +1,4 @@
 package chatbot;
-import java.util.Scanner;
 
 /**
  * ChatZH is a task management chatbot application that allows users to manage their tasks,
