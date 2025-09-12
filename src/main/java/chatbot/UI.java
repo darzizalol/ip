@@ -1,6 +1,5 @@
 package chatbot;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * UI is the class that handles the UI of the chatbot.
@@ -19,33 +18,6 @@ public class UI {
      * Constructor for UI on Command Line Interface
      */
     public UI() {}
-
-    /**
-     * Run the UI on the Command Line Interface
-     *
-     * @param sc the scanner to read user input
-     * @param storage the storage in charge of saving and loading tasks
-     */
-    public void run(Scanner sc, Storage storage) {
-        System.out.println(this.initMessage);
-
-        ArrayList<Task> savedTasks = storage.loadTasks();
-
-        // Detect user inputs
-        while (sc.hasNextLine()) {
-            String userInput = sc.nextLine();
-            if (userInput.equals("bye")) {
-
-                storage.saveTasks(savedTasks);
-
-                System.out.println("Bye. Hope to see you again soon!");
-                sc.close();
-                break;
-            }
-
-            Parser.handleUserCommand(userInput, savedTasks);
-        }
-    }
 
     /**
      * Run the UI on the GUI

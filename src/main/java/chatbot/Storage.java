@@ -57,17 +57,7 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<>();
 
         if (!file.exists()) {
-            try {
-                // Create parent directories if they don't exist
-                file.getParentFile().mkdirs();
-                boolean hasCreatedFile = file.createNewFile();
-                if (hasCreatedFile) {
-                    System.out.println("Created a brand new list!");
-                    System.out.println("_________________________");
-                }
-            } catch (IOException e) {
-                System.out.println("Error creating file: " + e.getMessage());
-            }
+            createParentDirectory(file);
         }
         try {
             Scanner s = new Scanner(file);
@@ -76,17 +66,8 @@ public class Storage {
                 for (int i = 0; i < parts.length; i++) {
                     parts[i] = parts[i].trim();
                 }
-                Task task;
-                if (parts[0].equals("T")) {
-                    task = parseTodo(parts);
-                    tasks.add(task);
-                } else if (parts[0].equals("D")) {
-                    task = parseDeadline(parts);
-                    tasks.add(task);
-                } else if (parts[0].equals("E")) {
-                    task = parseEvent(parts);
-                    tasks.add(task);
-                }
+                Task task = parseTask(parts);
+                tasks.add(task);
             }
             s.close();
         } catch (FileNotFoundException e) {
@@ -94,6 +75,39 @@ public class Storage {
             System.out.println("_________________________");
         }
         return tasks;
+    }
+
+    /**
+     * Create Parent directory if it does not exist
+     */
+    private void createParentDirectory(File file) {
+        try {
+            file.getParentFile().mkdirs();
+            boolean hasCreatedFile = file.createNewFile();
+            if (hasCreatedFile) {
+                System.out.println("Created a brand new list!");
+                System.out.println("_________________________");
+            }
+        } catch (IOException e) {
+            System.out.println("Error creating file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Parse the string array into a task
+     *
+     * @return the parsed task
+     */
+    private Task parseTask(String[] parts) {
+        Task task = null;
+        if (parts[0].equals("T")) {
+            task = parseTodo(parts);
+        } else if (parts[0].equals("D")) {
+            task = parseDeadline(parts);
+        } else if (parts[0].equals("E")) {
+            task = parseEvent(parts);
+        }
+        return task;
     }
 
     /**

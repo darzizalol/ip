@@ -31,24 +31,6 @@ public class ChatZh {
     }
 
     /**
-     * Run the chatbot
-     */
-    public void run() {
-        Scanner sc = new Scanner(System.in);
-        this.ui.run(sc, this.storage);
-    }
-
-    /**
-     * Main method to run the chatbot
-     * @param args command line arguments
-     */
-    public static void main(String[] args) {
-
-        ChatZh chatZh = new ChatZh(DATA_FILE_PATH);
-        chatZh.run();
-    }
-
-    /**
      * Generates a response for the GUI.
      */
     public String getResponse(String userInput) {
